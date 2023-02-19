@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package suzu;
+
+service BlogService {
+  rpc Get (google.protobuf.Empty) returns (stream GetBlogResponse) {}
+}
+message Blog {
+  string url = 1;
+  string date = 2;
+  string type = 3;
+  string title = 4;
+}
+message GetBlogResponse {
+  Blog blog = 1;
+}
