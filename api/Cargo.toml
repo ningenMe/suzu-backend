@@ -1,5 +1,5 @@
 [package]
-name = "suzu-api"
+name = "api"
 version = "0.1.0"
 edition = "2021"
 
@@ -14,4 +14,3 @@ infra = {path = "../infra"}
 
 [build-dependencies]
 tonic-build = "0.8"
-

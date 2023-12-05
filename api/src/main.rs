@@ -14,6 +14,7 @@ extern crate infra;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let num = 10;
     println!("Hello, world! {} plus one is {}!", num, infra::add_one(num));
+    println!("This is api project");
 
     let addr = "[::1]:50051".parse()?;
     let blog_service = MyBlogService::default();
