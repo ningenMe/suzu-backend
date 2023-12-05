@@ -1,4 +1,4 @@
-# suzu-api
+# suzu-backend
 
 ```shell
 # build
