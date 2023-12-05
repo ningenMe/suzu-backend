@@ -8,8 +8,13 @@ use crate::controller::blog_controller::suzu::blog_service_server::BlogServiceSe
 
 mod controller;
 
+extern crate infra;
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let num = 10;
+    println!("Hello, world! {} plus one is {}!", num, infra::add_one(num));
+
     let addr = "[::1]:50051".parse()?;
     let blog_service = MyBlogService::default();
 
