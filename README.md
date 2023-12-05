@@ -4,7 +4,8 @@
 # build
 cargo build
 # run
-cargo run
+cargo run -p api
+cargo run -p batch
 ```
 
 ```shell
