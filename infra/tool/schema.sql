@@ -10,3 +10,6 @@ CREATE TABLE `blog`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+
+-- insert into blog.blog (blog_url, posted_at, blog_type, blog_title) select url as blog_url, date as posted_at, type as blog_type, title as blog_title from ningenme.blog;
+
