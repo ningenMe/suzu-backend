@@ -20,11 +20,6 @@ static POOL: Lazy<Pool<MySql>> = Lazy::new(|| {
 }
 );
 
-
-// MySqlPoolOptions::new()
-// .max_connections(5)
-// .connect(&DATABASE_URL).await?;
-
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:50051".parse()?;
