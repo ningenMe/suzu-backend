@@ -9,4 +9,3 @@ edition = "2021"
 chrono = "0.4.31"
 sqlx = { version = "0.7", features = ["runtime-tokio", "mysql", "chrono"] }
 sqlx-mysql = "0.7.3"
-time = "0.3.30"
