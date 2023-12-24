@@ -12,11 +12,13 @@ jobs:
       - id: setup-rust
         name: setup rust
         uses: ningenMe/setup-rustup@v0.3.0
-        with:
-          version: 1.73.0
+      - id: setup-infra
+        name: setup infra
+        run: |
+          docker-compose -f ./infra/tool/docker-compose.yaml up -d
+        shell: bash
       - id: cargo-build
         name: cargo build
         run: |
-          cargo --version
-          cargo build
+          DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo build
         shell: bash

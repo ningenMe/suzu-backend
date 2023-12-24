@@ -2,7 +2,8 @@
 
 ```shell
 # build
-cargo build
+docker-compose -f ./infra/tool/docker-compose.yaml up -d
+DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog  cargo build
 # run
 DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo run -p api
 DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo run -p batch
