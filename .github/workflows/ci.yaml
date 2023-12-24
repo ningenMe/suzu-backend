@@ -9,14 +9,17 @@ jobs:
       - id: checkout
         name: checkout
         uses: actions/checkout@v3.5.0
-      - id: setup-rust
-        name: setup rust
-        uses: ningenMe/setup-rustup@v0.3.0
       - id: setup-infra
         name: setup infra
         run: |
           docker-compose -f ./infra/tool/docker-compose.yaml up -d
         shell: bash
+      - id: setup-rust
+        name: setup rust
+        uses: ningenMe/setup-rustup@v1.0.1
+      - id: setup-protoc
+        name: setup protoc
+        uses: arduino/setup-protoc@v2
       - id: cargo-build
         name: cargo build
         run: |
