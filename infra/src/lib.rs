@@ -6,13 +6,25 @@ use std::env;
 
 use once_cell::sync::Lazy;
 
-static DATABASE_URL: Lazy<String> = Lazy::new(|| env::var("DATABASE_URL").expect("database url is not found"));
+static NINGENME_MYSQL_MASTER_USER_USERNAME: Lazy<String> = Lazy::new(|| env::var("NINGENME_MYSQL_MASTER_USER_USERNAME").expect("env variable is not found"));
+static NINGENME_MYSQL_MASTER_USER_PASSWORD: Lazy<String> = Lazy::new(|| env::var("NINGENME_MYSQL_MASTER_USER_PASSWORD").expect("env variable is not found"));
+static NINGENME_MYSQL_HOST: Lazy<String> = Lazy::new(|| env::var("NINGENME_MYSQL_HOST").expect("env variable is not found"));
+static NINGENME_MYSQL_PORT: Lazy<String> = Lazy::new(|| env::var("NINGENME_MYSQL_PORT").expect("env variable is not found"));
+static DATABASE_URL: Lazy<String> = Lazy::new(|| 
+    format!("mysql://{}:{}@{}:{}/blog", 
+    *NINGENME_MYSQL_MASTER_USER_USERNAME, 
+    *NINGENME_MYSQL_MASTER_USER_PASSWORD,
+    *NINGENME_MYSQL_HOST,
+    *NINGENME_MYSQL_PORT
+));
+
 static POOL: Lazy<Pool<MySql>> = Lazy::new(|| {
     return futures::executor::block_on(async {
-        MySqlPoolOptions::new().max_connections(5).connect(&DATABASE_URL).await.expect("database is not connected")
+        MySqlPoolOptions::new().max_connections(5).connect(
+            &DATABASE_URL
+        ).await.expect("database is not connected")
     });
-}
-);
+});
 
 pub struct BlogDto {
     pub blog_url: String,

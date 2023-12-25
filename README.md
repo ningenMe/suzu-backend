@@ -8,8 +8,8 @@ cargo sqlx prepare --workspace --database-url "mysql://root:password@127.0.0.1:3
 cargo build
 # run
 `aws ssm get-parameters-by-path --path "/" --region ap-northeast-1 --output text | awk '{print "export",$5"="$7}'`
-DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo run -p api
-DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo run -p batch
+cargo run -p api
+cargo run -p batch
 ```
 
 ## client generate
