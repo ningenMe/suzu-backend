@@ -3,8 +3,11 @@
 ```shell
 # build
 docker-compose -f ./infra/tool/docker-compose.yaml up -d
-DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog  cargo build
+cargo sqlx prepare --workspace --database-url "mysql://root:password@127.0.0.1:3306/blog"
+# cargo sqlx prepare --workspace --database-url "mysql://${NINGENME_MYSQL_MASTER_USER_USERNAME}:${NINGENME_MYSQL_MASTER_USER_PASSWORD}@${NINGENME_MYSQL_HOST}:${NINGENME_MYSQL_PORT}/blog"
+cargo build
 # run
+`aws ssm get-parameters-by-path --path "/" --region ap-northeast-1 --output text | awk '{print "export",$5"="$7}'`
 DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo run -p api
 DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo run -p batch
 ```

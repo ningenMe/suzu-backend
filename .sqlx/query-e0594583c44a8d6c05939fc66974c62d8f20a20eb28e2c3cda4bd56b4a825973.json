@@ -1,0 +1,58 @@
+{
+  "db_name": "MySQL",
+  "query": "SELECT blog_url, posted_at, blog_type, blog_title FROM blog WHERE blog_type != 'DIARY' ORDER BY posted_at DESC",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "blog_url",
+        "type_info": {
+          "type": "VarString",
+          "flags": "NOT_NULL | PRIMARY_KEY | NO_DEFAULT_VALUE",
+          "char_set": 224,
+          "max_size": 1020
+        }
+      },
+      {
+        "ordinal": 1,
+        "name": "posted_at",
+        "type_info": {
+          "type": "Datetime",
+          "flags": "NOT_NULL | BINARY | NO_DEFAULT_VALUE",
+          "char_set": 63,
+          "max_size": 19
+        }
+      },
+      {
+        "ordinal": 2,
+        "name": "blog_type",
+        "type_info": {
+          "type": "String",
+          "flags": "NOT_NULL | ENUM | NO_DEFAULT_VALUE",
+          "char_set": 224,
+          "max_size": 24
+        }
+      },
+      {
+        "ordinal": 3,
+        "name": "blog_title",
+        "type_info": {
+          "type": "VarString",
+          "flags": "NOT_NULL | NO_DEFAULT_VALUE",
+          "char_set": 224,
+          "max_size": 2044
+        }
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "e0594583c44a8d6c05939fc66974c62d8f20a20eb28e2c3cda4bd56b4a825973"
+}
