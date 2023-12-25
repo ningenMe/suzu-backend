@@ -48,7 +48,7 @@ jobs:
         name: setup rustup
         uses: ningenMe/setup-rustup@v1.1.0
         with:
-          rust-version: ${{ inputs.rust-version }}
+          rust-version: 1.74.1
       - id: setup-protoc
         name: setup protoc
         uses: arduino/setup-protoc@v2
