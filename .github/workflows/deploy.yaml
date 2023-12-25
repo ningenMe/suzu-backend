@@ -15,6 +15,8 @@ on:
 permissions:
   id-token: write
 
+run-name: deploy ${{ inputs.application-name }}
+
 jobs:
   constant:
     runs-on: ubuntu-latest
