@@ -1,0 +1,81 @@
+name: deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      application-name:
+        description: 'application-name'
+        required: true
+        default: api
+        type: choice
+        options:
+          - api
+          - batch
+
+permissions:
+  id-token: write
+
+jobs:
+  constant:
+    runs-on: ubuntu-latest
+    outputs:
+      aws-region: ${{ steps.constant.outputs.aws-region }}
+      aws-ecr-registry: ${{ secrets.AWS_ECR_REGISTRY }}
+      docker-image-name: suzu-api-repository:${{ github.sha }}
+      rust-version: ${{ steps.constant.outputs.rust-version }}
+    steps:
+      - id: checkout
+        name: checkout
+        uses: actions/checkout@v3.5.0
+      - id: constant
+        name: constant
+        uses: ningenMe/chiyuki-k8s-config/action/constant@main
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    needs: [ constant ]
+    steps:
+      - id: checkout
+        name: checkout
+        uses: actions/checkout@v3.5.0
+      - id: setup-infra
+        name: setup infra
+        run: |
+          docker-compose -f ./infra/tool/docker-compose.yaml up -d
+        shell: bash
+      - id: setup-rustup
+        name: setup rustup
+        uses: ningenMe/setup-rustup@v1.1.0
+        with:
+          rust-version: ${{ inputs.rust-version }}
+      - id: setup-protoc
+        name: setup protoc
+        uses: arduino/setup-protoc@v2
+      - id: cargo-build
+        name: cargo build
+        run: |
+          DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo build -p api --release
+        shell: bash
+      - id: docker-image-push
+        name: docker-image-push
+        uses: ningenMe/chiyuki-k8s-config/action/docker-image-push@main
+        with:
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          aws-region: ${{ needs.constant.outputs.aws-region }}
+          aws-ecr-registry: ${{ secrets.AWS_ECR_REGISTRY }}
+          docker-image-name: ${{ needs.constant.outputs.docker-image-name }}
+          dockerfile-path: ./${{ inputs.application-name }}
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: [ constant, build-and-push-image ]
+  #   steps:
+  #     - id: checkout
+  #       name: checkout
+  #       uses: actions/checkout@v3.5.0
+  #     - id: kick-deploy
+  #       name: kick deploy
+  #       uses: ningenMe/chiyuki-k8s-config/action/kick-deploy@main
+  #       with:
+  #         deploy-token: ${{ secrets.DEPLOY_TOKEN }}
+  #         application-name: suzu-api

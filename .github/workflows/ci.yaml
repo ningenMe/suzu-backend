@@ -14,14 +14,16 @@ jobs:
         run: |
           docker-compose -f ./infra/tool/docker-compose.yaml up -d
         shell: bash
-      - id: setup-rust
-        name: setup rust
-        uses: ningenMe/setup-rustup@v1.0.1
+      - id: setup-rustup
+        name: setup rustup
+        uses: ningenMe/setup-rustup@v1.1.0
+        with:
+          rust-version: ${{ inputs.rust-version }}
       - id: setup-protoc
         name: setup protoc
         uses: arduino/setup-protoc@v2
       - id: cargo-build
         name: cargo build
         run: |
-          DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo build
+          DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo build --release
         shell: bash
