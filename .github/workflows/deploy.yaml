@@ -55,7 +55,8 @@ jobs:
       - id: cargo-build
         name: cargo build
         run: |
-          cargo build -p ${{ inputs.application-name }} --release
+          rustup target add x86_64-unknown-linux-musl
+          cargo build -p ${{ inputs.application-name }} --target=x86_64-unknown-linux-musl
         shell: bash
       - id: debug
         run: |
