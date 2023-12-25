@@ -10,7 +10,7 @@ extern crate infra;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "127.0.0.1:50051".parse()?;
+    let addr = "0.0.0.0:50051".parse()?;
     let blog_service = MyBlogService::default();
 
     Server::builder()
