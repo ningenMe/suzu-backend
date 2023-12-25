@@ -60,11 +60,11 @@ jobs:
         shell: bash
       - id: debug
         run: |
-          ls -la target
+          ls -lFa target
           echo ''
-          ls -la target/x86_64-unknown-linux-musl
+          ls -lFa target/x86_64-unknown-linux-musl
           echo ''
-          ls -la target/release
+          ls -lFa target/x86_64-unknown-linux-musl/release
         shell: bash
       - id: docker-image-push
         name: docker-image-push
