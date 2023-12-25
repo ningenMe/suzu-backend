@@ -1,5 +1,5 @@
 FROM alpine:3.19
 
-COPY ./../target/release/api .
+COPY ./../target/release/api /app/api
 
-CMD ["ls","-la","&&","./api"]
+CMD ["/app/api"]
