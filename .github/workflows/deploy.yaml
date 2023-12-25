@@ -1,8 +1,6 @@
 name: deploy
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
     inputs:
       application-name:
@@ -23,7 +21,7 @@ jobs:
     outputs:
       aws-region: ${{ steps.constant.outputs.aws-region }}
       aws-ecr-registry: ${{ secrets.AWS_ECR_REGISTRY }}
-      docker-image-name: suzu-api-repository:${{ github.sha }}
+      docker-image-name: suzu-${{ inputs.application-name }}-repository:${{ github.sha }}
       rust-version: ${{ steps.constant.outputs.rust-version }}
     steps:
       - id: checkout
@@ -55,7 +53,7 @@ jobs:
       - id: cargo-build
         name: cargo build
         run: |
-          DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo build -p api --release
+          DATABASE_URL=mysql://root:password@127.0.0.1:3306/blog cargo build -p ${{ inputs.application-name }} --release
         shell: bash
       - id: docker-image-push
         name: docker-image-push
