@@ -14,6 +14,7 @@ pub struct MyBlogService {}
 #[tonic::async_trait]
 impl BlogService for MyBlogService {
     async fn get_blog(&self, _request: Request<()>) -> Result<Response<GetBlogResponse>, Status> {
+        println!("get_blog request");
         let blog_dtos = select().await.expect("sql failed");
         let blogs = blog_dtos.iter().map(|it|{
             return Blog {
@@ -27,6 +28,7 @@ impl BlogService for MyBlogService {
     }
 
     async fn get_health(&self, _request: Request<()>) -> Result<Response<GetHealthResponse>, Status> {
+        println!("get_health request");
         Ok(Response::new(GetHealthResponse{text: "ok".to_string()}))
     }
 }
