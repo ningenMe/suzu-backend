@@ -56,7 +56,15 @@ jobs:
         name: cargo build
         run: |
           rustup target add x86_64-unknown-linux-musl
-          cargo build -p ${{ inputs.application-name }} --target=x86_64-unknown-linux-musl
+          cargo build -p ${{ inputs.application-name }} --target=x86_64-unknown-linux-musl --release
+        shell: bash
+      - id: debug
+        run: |
+          ls -la target
+          echo ''
+          ls -la target/x86_64-unknown-linux-musl
+          echo ''
+          ls -la target/release
         shell: bash
       - id: docker-image-push
         name: docker-image-push
