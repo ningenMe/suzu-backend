@@ -2,7 +2,7 @@ use infra::select;
 use tonic::{Request, Response, Status};
 
 use suzu::blog_service_server::BlogService;
-use suzu::{Blog, GetBlogResponse};
+use suzu::{Blog, GetBlogResponse, GetHealthResponse};
 
 pub mod suzu {
     tonic::include_proto!("suzu");
@@ -24,5 +24,9 @@ impl BlogService for MyBlogService {
             };
         }).collect();
         Ok(Response::new(GetBlogResponse{ blog_list: blogs} ))
+    }
+
+    async fn get_health(&self, _request: Request<()>) -> Result<Response<GetHealthResponse>, Status> {
+        Ok(Response::new(GetHealthResponse{text: "ok".to_string()}))
     }
 }

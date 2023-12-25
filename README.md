@@ -24,6 +24,7 @@ protoc \
 ## api call
 ```shell
 # local
+grpcurl -plaintext -import-path ./api/proto -proto suzu.proto -d '{}' '[::]:50051' suzu.BlogService/GetHealth
 grpcurl -plaintext -import-path ./api/proto -proto suzu.proto -d '{}' '[::]:50051' suzu.BlogService/GetBlog
 # production
 grpcurl -plaintext -import-path ./api/proto -proto suzu.proto -d '{}' 'suzu-api.ningenme.net:443' suzu.BlogService/GetBlog

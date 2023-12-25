@@ -6,6 +6,7 @@ package suzu;
 
 service BlogService {
   rpc GetBlog (google.protobuf.Empty) returns (GetBlogResponse) {}
+  rpc GetHealth (google.protobuf.Empty) returns (GetHealthResponse) {}
 }
 message Blog {
   string url = 1;
@@ -15,4 +16,7 @@ message Blog {
 }
 message GetBlogResponse {
   repeated Blog blog_list = 1;
+}
+message GetHealthResponse {
+  string text = 1;
 }
