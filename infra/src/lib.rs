@@ -3,6 +3,7 @@ use sqlx::MySql;
 use chrono::naive::NaiveDateTime;
 use sqlx::mysql::MySqlPoolOptions;
 use std::env;
+use std::time::Duration;
 
 use once_cell::sync::Lazy;
 
@@ -20,7 +21,12 @@ static DATABASE_URL: Lazy<String> = Lazy::new(||
 
 static POOL: Lazy<Pool<MySql>> = Lazy::new(|| {
     return futures::executor::block_on(async {
-        MySqlPoolOptions::new().max_connections(5).connect(
+        MySqlPoolOptions::new()
+        .min_connections(1)
+        .max_connections(5)
+        .acquire_timeout(Duration::from_secs(5))
+        .idle_timeout(Duration::from_secs(5))
+        .connect(
             &DATABASE_URL
         ).await.expect("database is not connected")
     });
