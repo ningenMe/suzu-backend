@@ -27,7 +27,7 @@ static POOL: Lazy<Pool<MySql>> = Lazy::new(|| {
         .acquire_timeout(Duration::from_secs(5))
         .idle_timeout(Duration::from_secs(5))
         .connect(
-            &DATABASE_URL
+            &*DATABASE_URL
         ).await.expect("database is not connected")
     });
 });
