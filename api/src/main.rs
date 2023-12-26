@@ -1,3 +1,4 @@
+use infra::health;
 use tonic::transport::Server;
 
 use crate::controller::blog_controller::MyBlogService;
@@ -12,6 +13,8 @@ extern crate infra;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "0.0.0.0:50051".parse()?;
     let blog_service = MyBlogService::default();
+
+    health().await;
 
     Server::builder()
         .add_service(BlogServiceServer::new(blog_service))
