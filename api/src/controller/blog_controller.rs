@@ -21,7 +21,7 @@ impl BlogService for MyBlogService {
             .map(|it| {
                 return Blog {
                     url: it.blog_url.clone(),
-                    date: it.posted_at.to_string(),
+                    date: it.posted_at.date().to_string(),
                     blog_type: it.blog_type.clone(),
                     blog_title: it.blog_title.clone(),
                 };
