@@ -33,4 +33,6 @@ protoc \
 grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}' 'localhost:50051' suzu.v1.BlogService/GetHealth
 grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}' 'localhost:50051' suzu.v1.BlogService/GetBlog
 # production
+grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}' 'k8s-ec2.ningenme.net:30007' suzu.v1.BlogService/GetHealth
+grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}' 'k8s-ec2.ningenme.net:30007' suzu.v1.BlogService/GetBlog
 ```
