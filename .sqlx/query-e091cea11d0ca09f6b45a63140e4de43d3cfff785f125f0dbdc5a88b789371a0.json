@@ -1,6 +1,6 @@
 {
   "db_name": "MySQL",
-  "query": "SELECT blog_url, posted_at, blog_type, blog_title FROM blog WHERE blog_type != 'DIARY' ORDER BY posted_at DESC",
+  "query": "SELECT blog_url, posted_at, blog_type, blog_title FROM blog WHERE not blog_type IN ('DIARY','') ORDER BY posted_at DESC",
   "describe": {
     "columns": [
       {
@@ -54,5 +54,5 @@
       false
     ]
   },
-  "hash": "e0594583c44a8d6c05939fc66974c62d8f20a20eb28e2c3cda4bd56b4a825973"
+  "hash": "e091cea11d0ca09f6b45a63140e4de43d3cfff785f125f0dbdc5a88b789371a0"
 }

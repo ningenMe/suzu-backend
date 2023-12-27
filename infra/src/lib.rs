@@ -50,7 +50,7 @@ pub struct BlogDto {
 pub async fn select() -> Result<Vec<BlogDto>, sqlx::Error> {
     let blogs = sqlx::query_as!(
         BlogDto,
-        "SELECT blog_url, posted_at, blog_type, blog_title FROM blog WHERE blog_type != 'DIARY' ORDER BY posted_at DESC"
+        "SELECT blog_url, posted_at, blog_type, blog_title FROM blog WHERE not blog_type IN ('DIARY','') ORDER BY posted_at DESC"
     )
     .fetch_all(&*POOL)
     .await?;
