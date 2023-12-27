@@ -20,11 +20,11 @@ cargo run -p batch
 
 ## client generate
 ```shell
-TS_OUT_PATH="./api/client"
+TS_OUT_PATH="./api/proto/client"
 protoc \
 --js_out="import_style=commonjs,binary:${TS_OUT_PATH}" \
 --grpc-web_out="import_style=typescript,mode=grpcwebtext:${TS_OUT_PATH}" \
-./api/proto/*.proto
+./api/proto/suzu/v1/*.proto
 ```
 
 ## api call
