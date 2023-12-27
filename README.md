@@ -1,6 +1,12 @@
 # suzu-backend
 
 ```shell
+cd proto
+buf lint
+npx buf generate suzu
+```
+
+```shell
 # build
 docker-compose -f ./infra/tool/docker-compose.yaml up -d
 cargo sqlx prepare --workspace --database-url "mysql://root:password@127.0.0.1:3306/blog"
@@ -24,8 +30,7 @@ protoc \
 ## api call
 ```shell
 # local
-grpcurl -plaintext -import-path ./api/proto -proto suzu.proto -d '{}' '[::]:50051' suzu.BlogService/GetHealth
-grpcurl -plaintext -import-path ./api/proto -proto suzu.proto -d '{}' '[::]:50051' suzu.BlogService/GetBlog
+grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}' 'localhost:50051' suzu.v1.BlogService/GetHealth
+grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}' 'localhost:50051' suzu.v1.BlogService/GetBlog
 # production
-grpcurl -plaintext -import-path ./api/proto -proto suzu.proto -d '{}' 'suzu-api.ningenme.net:443' suzu.BlogService/GetBlog
 ```

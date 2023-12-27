@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-package suzu;
+package suzu.v1;
 
 service BlogService {
   rpc GetBlog (google.protobuf.Empty) returns (GetBlogResponse) {}

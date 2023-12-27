@@ -5,7 +5,7 @@ use suzu::blog_service_server::BlogService;
 use suzu::{Blog, GetBlogResponse, GetHealthResponse};
 
 pub mod suzu {
-    tonic::include_proto!("suzu");
+    tonic::include_proto!("suzu.v1");
 }
 
 #[derive(Debug, Default)]
