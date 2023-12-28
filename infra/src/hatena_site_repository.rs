@@ -9,7 +9,7 @@ use scraper::Selector;
 use crate::BlogDto;
 
 
-pub async fn get_list(page: i32) -> Result<Vec<BlogDto>,reqwest::Error> {
+pub async fn get_blog_dto_list(page: i32) -> Result<Vec<BlogDto>,reqwest::Error> {
     let url = format!("https://ningenme.hatenablog.com/archive?page={}", page);
     println!("{}", url);
     let raw_html = reqwest::get(url).await?.text().await?;

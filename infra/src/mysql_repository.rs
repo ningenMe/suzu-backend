@@ -51,6 +51,20 @@ pub async fn select() -> Result<Vec<BlogDto>, sqlx::Error> {
     return Ok(blogs);
 }
 
+pub async fn insert(blog_dto: BlogDto) -> Result<(), sqlx::Error> {
+    sqlx::query!(
+        "INSERT INTO blog (blog_url, posted_at, blog_type, blog_title) 
+         VALUES (?, ?, ?, ?) AS new ON DUPLICATE KEY UPDATE posted_at = new.posted_at, blog_type = new.blog_type, blog_title = new.blog_title ", 
+        blog_dto.blog_url,
+        blog_dto.posted_at,
+        blog_dto.blog_type,
+        blog_dto.blog_title
+    )
+    .execute(&*POOL)
+    .await?;
+    return Ok(());
+}
+
 pub async fn health() {
     sqlx::query("SELECT 1 FROM blog")
         .fetch_one(&*POOL)

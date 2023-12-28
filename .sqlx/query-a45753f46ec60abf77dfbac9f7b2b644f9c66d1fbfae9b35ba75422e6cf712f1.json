@@ -1,0 +1,12 @@
+{
+  "db_name": "MySQL",
+  "query": "INSERT INTO blog (blog_url, posted_at, blog_type, blog_title) \n         VALUES (?, ?, ?, ?) AS new ON DUPLICATE KEY UPDATE posted_at = new.posted_at, blog_type = new.blog_type, blog_title = new.blog_title ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "a45753f46ec60abf77dfbac9f7b2b644f9c66d1fbfae9b35ba75422e6cf712f1"
+}
