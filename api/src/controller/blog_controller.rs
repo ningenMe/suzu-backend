@@ -1,4 +1,4 @@
-use infra::select;
+use infra::mysql_repository::select;
 use tonic::{Request, Response, Status};
 
 use suzu::blog_service_server::BlogService;

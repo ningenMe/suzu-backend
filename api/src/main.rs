@@ -1,4 +1,4 @@
-use infra::health;
+use infra::mysql_repository::health;
 use tonic::transport::Server;
 use tonic::codegen::http::{Method, header};
 use tonic_web::GrpcWebLayer;
