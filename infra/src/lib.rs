@@ -2,6 +2,7 @@ use chrono::NaiveDateTime;
 
 pub mod mysql_repository;
 pub mod hatena_site_repository;
+pub mod qiita_site_repository;
 
 #[derive(Debug)]
 pub struct BlogDto {
