@@ -14,6 +14,7 @@ jobs:
       #   run: |
       #     docker-compose -f ./infra/tool/docker-compose.yaml up -d
       #   shell: bash
+
       - id: setup-rustup
         name: setup rustup
         uses: ningenMe/setup-rustup@v1.1.0
@@ -22,6 +23,11 @@ jobs:
       - id: setup-protoc
         name: setup protoc
         uses: arduino/setup-protoc@v2
+      - id: setup-openssl
+        name: setup openssl
+        run: |
+          sudo apt-get install libssl-dev pkg-config
+        shell: bash
       - id: cargo-build
         name: cargo build
         run: |
