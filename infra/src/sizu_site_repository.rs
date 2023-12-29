@@ -1,10 +1,4 @@
-use std::thread::sleep;
-use std::time::Duration;
-
-use chrono::NaiveDateTime;
 use reqwest;
-use scraper::Html;
-use scraper::Selector;
 
 use crate::BlogDto;
 
