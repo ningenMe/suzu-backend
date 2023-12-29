@@ -26,7 +26,7 @@ jobs:
       - id: setup-openssl
         name: setup openssl
         run: |
-          sudo apt-get install libssl-dev pkg-config
+          sudo apt install libssl-dev
         shell: bash
       - id: cargo-build
         name: cargo build
