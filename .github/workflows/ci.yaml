@@ -9,12 +9,6 @@ jobs:
       - id: checkout
         name: checkout
         uses: actions/checkout@v3.5.0
-      # - id: setup-infra
-      #   name: setup infra
-      #   run: |
-      #     docker-compose -f ./infra/tool/docker-compose.yaml up -d
-      #   shell: bash
-
       - id: setup-rustup
         name: setup rustup
         uses: ningenMe/setup-rustup@v1.1.0
@@ -23,15 +17,14 @@ jobs:
       - id: setup-protoc
         name: setup protoc
         uses: arduino/setup-protoc@v2
-      - id: setup-openssl
-        name: setup openssl
+      - id: setup-other
+        name: setup other
         run: |
-          sudo apt-get install libssl-dev
           sudo apt-get install musl-tools
+          rustup target add x86_64-unknown-linux-musl
         shell: bash
       - id: cargo-build
         name: cargo build
         run: |
-          rustup target add x86_64-unknown-linux-musl
           cargo build --target=x86_64-unknown-linux-musl
         shell: bash
