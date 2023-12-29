@@ -79,4 +79,4 @@ jobs:
         uses: ningenMe/chiyuki-k8s-config/action/kick-deploy@main
         with:
           deploy-token: ${{ secrets.DEPLOY_TOKEN }}
-          application-name: suzu-api
+          application-name: suzu-${{ inputs.application-name }}
