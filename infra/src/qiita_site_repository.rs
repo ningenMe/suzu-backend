@@ -19,7 +19,6 @@ struct QiitaBlogDto {
 }
 
 pub async fn get_blog_dto_list(page: i32) -> Result<Vec<BlogDto>,reqwest::Error> {
-    //curl -H 'Authorization: Bearer ' 'https://qiita.com/api/v2/authenticated_user/items?per_page=100&page=2'
     let url = format!("https://qiita.com/api/v2/authenticated_user/items?per_page=100&page={}", page);
     let authorization = format!("Bearer {}", *QIITA_ACCESS_TOKEN);
     let client = reqwest::Client::new();

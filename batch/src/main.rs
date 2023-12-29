@@ -1,7 +1,7 @@
 use std::{thread::sleep, time::Duration};
 use clap::Parser;
 
-use infra::{hatena_site_repository, BlogDto, mysql_repository::insert, qiita_site_repository};
+use infra::{hatena_site_repository, BlogDto, mysql_repository::insert, qiita_site_repository, ameba_site_repository};
 
 extern crate infra;
 
@@ -29,16 +29,30 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>  {
     let mut blog_dto_list = Vec::<BlogDto>::new();
 
     if args.hatena {
-        for page in 1..20 {
+        //20 x 35 = 700 blog
+        for page in 1..10 {
             let mut tmp_list = hatena_site_repository::get_blog_dto_list(page).await.expect("hatena error");
+            println!("hatena blog: page={}, size={}", page, tmp_list.len());
             blog_dto_list.append(&mut tmp_list);
         }    
     }
     if args.qiita {
-        for page in 1..5 {
+        //5 x 100 = 500 blog
+        for page in 1..6 {
             let mut tmp_list = qiita_site_repository::get_blog_dto_list(page).await.expect("qiita error");
+            println!("qiita blog: page={}, size={}", page, tmp_list.len());
             blog_dto_list.append(&mut tmp_list);
         }    
+    }
+    if args.ameba {
+        //5 x 20 = 100 blog
+        for page in 1..6 {
+            let mut tmp_list = ameba_site_repository::get_blog_dto_list(page).await.expect("ameba error");
+            println!("ameba blog: page={}, size={}", page, tmp_list.len());
+            blog_dto_list.append(&mut tmp_list);
+
+        }    
+
     }
 
     if !args.dryrun {
