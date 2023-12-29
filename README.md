@@ -39,5 +39,5 @@ grpcurl -v -plaintext -import-path ./api/proto/suzu/v1 -proto suzu.proto -d '{}'
 
 ## batch call
 ```shell
-cargo run -p batch -- --hatena --qiita --dryrun
+cargo run -p batch -- --hatena --qiita --ameba --dryrun
 ```

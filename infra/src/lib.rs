@@ -4,6 +4,7 @@ pub mod mysql_repository;
 pub mod hatena_site_repository;
 pub mod qiita_site_repository;
 pub mod ameba_site_repository;
+pub mod sizu_site_repository;
 
 #[derive(Debug)]
 pub struct BlogDto {

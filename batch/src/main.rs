@@ -1,7 +1,7 @@
 use std::{thread::sleep, time::Duration};
 use clap::Parser;
 
-use infra::{hatena_site_repository, BlogDto, mysql_repository::insert, qiita_site_repository, ameba_site_repository};
+use infra::{hatena_site_repository, BlogDto, mysql_repository::insert, qiita_site_repository, ameba_site_repository, sizu_site_repository};
 
 extern crate infra;
 
@@ -17,6 +17,9 @@ struct Args {
     /// you want to fetch ameba ?
     #[arg(long, default_value_t = false)]
     ameba: bool,
+    /// you want to fetch sizu ?
+    #[arg(long, default_value_t = false)]
+    sizu: bool,
     /// yow want to dry-run ?
     #[arg(long, default_value_t = false)]
     dryrun: bool,
@@ -52,7 +55,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>  {
             blog_dto_list.append(&mut tmp_list);
 
         }    
+    }
+    if args.sizu {
+        {
+            let mut tmp_list = sizu_site_repository::get_blog_dto_list().await.expect("sizu error");
+            println!("sizu blog: page={}, size={}", 1, tmp_list.len());
+            blog_dto_list.append(&mut tmp_list);
 
+        }    
     }
 
     if !args.dryrun {
