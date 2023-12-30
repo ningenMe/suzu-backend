@@ -1,7 +1,7 @@
 use std::{thread::sleep, time::Duration};
 use clap::Parser;
 
-use infra::{hatena_site_repository, BlogDto, mysql_repository::insert, qiita_site_repository, ameba_site_repository, sizu_site_repository};
+use infra::{hatena_site_repository, BlogDto, mysql_repository, qiita_site_repository, ameba_site_repository, sizu_site_repository};
 
 extern crate infra;
 
@@ -27,6 +27,7 @@ struct Args {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>>  {
+    mysql_repository::health().await;
     let args = Args::parse();
 
     let mut blog_dto_list = Vec::<BlogDto>::new();
@@ -68,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>  {
     if !args.dryrun {
         for blog_dto in blog_dto_list {
             println!("{:?}", blog_dto);
-            let _ = insert(blog_dto).await;
+            let _ = mysql_repository::insert(blog_dto).await;
             sleep(Duration::from_millis(500));
         }    
     }
