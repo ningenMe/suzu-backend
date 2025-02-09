@@ -67,11 +67,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>  {
         }    
     }
     if args.sizu {
-        {
-            let mut tmp_list = sizu_site_repository::get_blog_dto_list().await.expect("sizu error");
+        //20 x 3 = 60 blog
+        for page in 1..4 {
+            let mut tmp_list = sizu_site_repository::get_blog_dto_list(page).await.expect("sizu error");
             println!("sizu blog: page={}, size={}", 1, tmp_list.len());
             blog_dto_list.append(&mut tmp_list);
-
         }    
     }
 
